@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react demo study</title>
+</head>
+<body>
+<div id="container" style="width:500px;height:400px">
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script type="text/jsx">
+    var TestClickComponent=React.createClass({
+        handleClick:function(event){
+            var tip=React.findDOMNode(this.refs.tip);
+            if(tip.style.display==="block"){
+                tip.style.display="none";
+            }else{
+                tip.style.display="block";
+            }
+            event.stopPropagation();
+            event.preventDefault();
+        },
+        render:function(){
+            return(
+                    <div>
+                        <button onClick={this.handleClick}>显示、隐藏</button><span ref="tip"> 测试内容</span>
+                    </div>
+            )
+        }
+    });
+
+    /*
+    * react的数据双向绑定的原理，定义一个组件演示，
+    */
+    var TestInputComponent=React.createClass({
+        getInitialState:function(){
+            return{
+                inputContent:"",
+            }
+        },
+        changeContent:function(event){
+            this.setState({
+                inputContent:event.target.value
+            });
+        },
+        /*react的语法是all in  js，不写单独的HTML和css了*/
+        render:function(){
+            return(
+                    <div>
+                        <input onChange={this.changeContent}/><span>{this.state.inputContent}</span>
+                    </div>
+            )
+        }
+    });
+   /*
+   *给元素绑定组件，一次只能绑定一个元素，所以必须用将两个组件用一个div包裹起来
+   */
+    React.render(<div><TestClickComponent/><TestInputComponent/></div>,document.getElementById("container"));
+</script>
+</body>
+</html>
