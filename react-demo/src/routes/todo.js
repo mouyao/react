@@ -3,7 +3,6 @@ import createContainer from 'UTIL/createContainer'
 
 export default {
   path: 'todo',
-
   /* 布局基页 */
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
